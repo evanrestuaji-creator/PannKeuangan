@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="#0f172a" name="theme-color"/>
+<title>PANN BISNIS — Financial Management</title>
+<style>
+/* CSS RESET & MODERN SAAS DESIGN SYSTEM */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bg-main: #0b0f19;
+  --bg-card: #111827;
+  --bg-card-subtle: #162032;
+  --bg-card-hover: #1e293b;
+  --border-color: #1f293d;
+  --border-focus: #3b82f6;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: rgba(59, 130, 246, 0.12);
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --danger-hover: #dc2626;
+  --sidebar-w: 260px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.5);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  height: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* APP WRAPPER & RESPONSIVE LAYOUT */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* SIDEBAR (DESKTOP) & OFF-CANVAS (MOBILE) */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-section {
+  padding: 20px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-logo-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.brand-info h1 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-info p {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nav-shell {
+  flex: 1;
+  padding: 14px 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.nav-shell::after { display: none !important; }
+
+#nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#nav button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#nav button:hover {
+  background: var(--bg-card-subtle);
+  color: var(--text-primary);
+}
+
+#nav button.active {
+  background: var(--primary-light);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+#nav button .nav-icon {
+  font-size: 18px;
+  width: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+#nav button.active .nav-icon {
+  color: #60a5fa;
+}
+
+.sidebar-footer {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border-color);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* MAIN CONTENT AREA */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 74px; /* Space for Mobile Bottom Bar */
+}
+
+/* TOPBAR */
+header {
+  padding: 14px 24px;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.home-button {
+  display: none; /* Desktop hidden, mobile shown */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.home-button:hover, .home-button:active {
+  background: var(--bg-card-hover);
+  border-color: var(--primary);
+}
+
+.page-header-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header-title h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.page-header-title p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.device-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34d399;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.device-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+}
+
+/* MAIN BODY CONTENT */
+main {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* PANELS & CARDS */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.panel.wide {
+  width: 100%;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 20px 0 12px;
+}
+
+p.muted, small {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 22px 0;
+}
+
+/* METRIC CARDS / STAT GRIDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.metric {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.metric:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.metric span {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.metric strong {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum";
+}
+
+/* Special Accents for Dashboard KPI */
+.metric:nth-child(1) strong { color: #60a5fa; }
+.metric:nth-child(2) strong { color: #f59e0b; }
+.metric:nth-child(3) strong { color: #f87171; }
+.metric:nth-child(4) strong { color: #34d399; }
+
+/* FORMS & INPUT CONTROLS */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13.5px;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: #0f1624;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* BUTTONS */
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+button:hover, .btn:hover {
+  background: var(--bg-card-hover);
+  border-color: #334155;
+}
+
+button.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+button.primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+button.danger {
+  background: var(--danger-bg);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+button.danger:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* PILL FILTER ROW */
+.pill-row {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-main);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.pill-row button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.pill-row button.active {
+  background: var(--bg-card);
+  color: #60a5fa;
+  box-shadow: var(--shadow-sm);
+}
+
+/* DATA TABLES & PAGINATION */
+.tablewrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-main);
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+th {
+  background: var(--bg-card);
+  padding: 12px 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tag:contains("LUNAS"), .tag {
+  background: var(--success-bg);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.days {
+  display: inline-block;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+.days.expired {
+  color: #f87171;
+}
+
+.empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+  gap: 12px;
+}
+
+.pagination .page-info {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.pagination button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* SEARCH RESULTS DROPDOWN FOR PAYMENTS */
+.search-results {
+  display: grid;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.search-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 14px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.search-item:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--primary);
+}
+
+/* CHATBOT & ASSISTANT VIEW */
+.chat-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.chat-crown {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+  flex-shrink: 0;
+}
+
+.chat-transcript {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding: 16px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.chat-bubble {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.chat-bot {
+  align-self: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-user {
+  align-self: flex-end;
+  background: var(--primary);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+
+.chat-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+/* 1-COLUMN FULL-WIDTH STACK LIST (MATCHING EXACT REFERENCE SCREENSHOT) */
+.library-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.library-section-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.library-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.library-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  background: #172136;
+  border: 1px solid #1f2f4e;
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+  font-size: 14px;
+}
+
+.library-item:hover {
+  background: #1e2c48;
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.library-item:active {
+  transform: translateY(0);
+}
+
+.library-num {
+  font-weight: 700;
+  color: #3b82f6;
+  font-size: 14px;
+  min-width: 24px;
+}
+
+.library-item-title {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+/* MODAL & DIALOG OVERLAY */
+.setup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.setup-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 10001;
+}
+
+.setup-card h2 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* FLOATING TOAST NOTIFICATION */
+#notice {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  max-width: 420px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid #3b82f6;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 11000;
+  font-weight: 500;
+  display: none;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* LOADING SCREEN (5 SECONDS MODERN SAAS SPLASH) */
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #090d16;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#loadingScreen.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-card {
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  padding: 38px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.loading-crown {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.loading-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.loading-subtitle {
+  font-size: 13px;
+  color: #60a5fa;
+  font-weight: 600;
+  margin: 12px 0 16px;
+}
+
+.loading-quest {
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.loading-track {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--bg-main);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.loading-progress {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  transition: width 0.35s ease;
+}
+
+.loading-percent {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* MOBILE BOTTOM BAR (NAVIGATION FOR ANDROID) */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border-color);
+  z-index: 90;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mobile-bottom-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 10px;
+  font-size: 10.5px;
+  gap: 3px;
+  font-weight: 500;
+}
+
+.mobile-bottom-nav button.active {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.mobile-bottom-nav button .nav-icon {
+  font-size: 19px;
+}
+
+/* RESPONSIVE BREAKPOINTS (ANDROID & MOBILE FIRST) */
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 95;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  .home-button {
+    display: inline-flex; /* Show drawer toggle on mobile */
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  main {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .metric {
+    padding: 12px 14px;
+  }
+
+  .metric strong {
+    font-size: 17px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  #notice {
+    left: 16px;
+    right: 16px;
+    bottom: 74px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<!-- LOADING SCREEN -->
+<div aria-label="Memuat aplikasi" aria-live="polite" id="loadingScreen" role="status">
+<div class="loading-card">
+<div aria-hidden="true" class="loading-crown">🏦</div>
+<div class="loading-title">PANN BISNIS<br/><span style="font-size:16px;font-weight:500;color:var(--text-secondary)">Financial Operating System</span></div>
+<div class="loading-subtitle" id="loadingStatus">Menyiapkan workspace offline...</div>
+<div class="loading-quest" id="loadingQuest">Quest hari ini sedang dipilih...</div>
+<div class="loading-track"><div class="loading-progress" id="loadingProgress"></div></div>
+<div class="loading-percent"><span id="loadingStep">Inisialisasi sistem</span><span id="loadingPercent">0%</span></div>
+</div>
+</div>
+<div class="app-container">
+<!-- MOBILE SIDEBAR BACKDROP -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<!-- NAVIGATION SIDEBAR -->
+<aside class="sidebar" id="sidebarContainer">
+<div class="brand-section">
+<div class="brand-logo-icon">🏦</div>
+<div class="brand-info">
+<h1>PANN BISNIS</h1>
+<p>Enterprise Offline OS</p>
+</div>
+</div>
+<div class="nav-shell">
+<nav id="nav">
+<button class="active" data-view="dashboard"><span class="nav-icon">▦</span><span>Ringkasan Saldo</span></button>
+<button data-view="jualan"><span class="nav-icon">🛍</span><span>Penjualan</span></button>
+<button data-view="dp"><span class="nav-icon">💳</span><span>DP &amp; Cicilan</span></button>
+<button data-view="pengeluaran"><span class="nav-icon">↘</span><span>Pengeluaran</span></button>
+<button data-view="hutang"><span class="nav-icon">↔</span><span>Hutang</span></button>
+<button data-view="arsip"><span class="nav-icon">▤</span><span>Arsip Bulanan</span></button>
+<button data-view="data"><span class="nav-icon">☁</span><span>Cadangan Data</span></button>
+<button data-view="assistant"><span class="nav-icon">💬</span><span>Chat &amp; Bot</span></button>
+</nav>
+</div>
+<div class="sidebar-footer">
+<span>Database Lokal v1.0</span>
+<span style="color:#10b981">● Siap</span>
+</div>
+</aside>
+<!-- CONTENT WRAPPER -->
+<div class="content-wrapper">
+<!-- TOPBAR -->
+<header>
+<div class="topbar">
+<div class="topbar-left">
+<button aria-expanded="false" class="home-button" id="homeToggle" type="button">
+<span>☰</span> Menu
+          </button>
+<div class="page-header-title">
+<h2 id="currentViewTitle">Ringkasan Saldo</h2>
+<p>Penyimpanan mandiri di perangkat</p>
+</div>
+</div>
+<div class="device-badge">
+<span>Offline</span>
+</div>
+</div>
+</header>
+<!-- MAIN BODY -->
+<main>
+<!-- SECTION CONTENT -->
+<section class="panel wide">
+<!-- DASHBOARD VIEW -->
+<div class="view" id="dashboard">
+<div class="panel-header">
+<h2>Ringkasan Keuangan Utama</h2>
+</div>
+<div class="cards">
+<div class="metric"><span>Saldo / Komisi Terkumpul</span><strong id="mSaldo">Rp0</strong></div>
+<div class="metric"><span>Uang Kotor</span><strong id="mKotor">Rp0</strong></div>
+<div class="metric"><span>Total Pengeluaran</span><strong id="mKeluar">Rp0</strong></div>
+<div class="metric"><span>Uang Bersih</span><strong id="mBersih">Rp0</strong></div>
+</div>
+<hr/>
+<div class="panel-header">
+<h2>Statistik Transaksi &amp; Operasional</h2>
+</div>
+<div class="cards">
+<div class="metric"><span>Total Penjualan</span><strong id="mPenjualan">Rp0</strong></div>
+<div class="metric"><span>Total DP Masuk</span><strong id="mDP">Rp0</strong></div>
+<div class="metric"><span>Total Cicilan Masuk</span><strong id="mCicilan">Rp0</strong></div>
+<div class="metric"><span>Sisa Hutang Tercatat</span><strong id="mHutang">Rp0</strong></div>
+<div class="metric"><span>Total Botol</span><strong id="mBotol">0 botol</strong></div>
+<div class="metric"><span>Total Uang Hangus</span><strong id="mHangus">Rp0</strong></div>
+</div>
+<p class="muted" style="margin-top:16px">Note : Komisi Akan Masuk Otomatis Ketika Status Penjualan/Dp/Cicilan Berstatus LUNAS, Jika Status Masih PENDING BUKAN LUNAS Komisi Tidak Akan Bertambah.</p>
+</div>
+<!-- JUALAN VIEW -->
+<div class="view hidden" id="jualan">
+<h2>Catat Penjualan Baru</h2>
+<form id="saleForm" style="margin-top:14px">
+<div class="row">
+<label>Nama Pelanggan<input id="saleName" placeholder="Contoh: Andi Wijaya" required=""/></label>
+<label>Pilihan Paket<select id="salePackage"><option>Whitening</option><option>Luxury</option><option>Royal</option></select></label>
+</div>
+<div class="cards">
+<div class="metric"><span>Harga Paket</span><strong id="salePrice">Rp329.000</strong></div>
+<div class="metric"><span>Estimasi Komisi</span><strong id="saleCommission">Rp89.000</strong></div>
+</div>
+<div class="row">
+<label>Status Pembayaran<select id="saleStatus"><option value="LUNAS">LUNAS (Default penjualan langsung)</option><option value="PENDING">PENDING (Belum lunas)</option></select></label>
+<label>Catatan Transaksi (Opsional)<input id="saleNote" placeholder="Catatan alamat atau nomor nota"/></label>
+</div>
+<button class="primary" style="align-self:flex-start" type="submit">Simpan Penjualan</button>
+</form>
+<hr/>
+<h3>Riwayat Penjualan</h3>
+<div class="tablewrap" id="salesTable"></div>
+</div>
+<!-- DP & CICILAN VIEW -->
+<div class="view hidden" id="dp">
+<h2>Manajemen DP &amp; Cicilan</h2>
+<div aria-label="Kategori transaksi" class="pill-row" role="group" style="margin-top:14px">
+<button class="active" id="catDP" type="button">Memulai DP</button>
+<button id="catCicilan" type="button">Cicilan Baru</button>
+</div>
+<div id="dpEntryArea">
+<form id="dpForm">
+<div class="row">
+<label>Nama Pelanggan<input id="dpName" placeholder="Contoh: Budi Santoso" required=""/></label>
+<label>Paket Dipilih<select id="dpPackage"><option>Whitening</option><option>Luxury</option><option>Royal</option></select></label>
+</div>
+<div class="row">
+<label>Harga Paket (Rp)<input id="dpPrice" inputmode="numeric" required="" type="text" value="329.000"/></label>
+<label id="dpAmountLabel">DP Awal (Rp)<input id="dpAmount" inputmode="numeric" placeholder="100 = Rp100.000" required="" type="text"/></label>
+</div>
+<div class="row">
+<label>Batas Pembayaran (Hari)<input id="dpDays" min="1" required="" type="number" value="30"/></label>
+<label>Catatan (Opsional)<input id="dpNote" placeholder="Catatan transaksi"/></label>
+</div>
+<button class="primary" id="saveNewPlan" style="align-self:flex-start" type="submit">Simpan DP Baru</button>
+</form>
+</div>
+<hr/>
+<h3>Tambah Pembayaran Transaksi Berjalan</h3>
+<form id="payForm">
+<div class="pill-row" style="margin-bottom:12px">
+<button class="active" id="payCatDP" type="button">DP</button>
+<button id="payCatCicilan" type="button">Cicilan</button>
+</div>
+<label>Pilih Transaksi<select id="paySale" required=""></select></label>
+<label>Cari Nama atau Nomor Transaksi<input id="paySearch" placeholder="Ketik nomor invoice atau nama pelanggan..." type="search"/></label>
+<div class="search-results" id="paySearchResults"></div>
+<label>Nominal Pembayaran (Rp)<input id="payAmount" inputmode="numeric" placeholder="229 = Rp229.000" required="" type="text"/></label>
+<button class="primary" style="align-self:flex-start" type="submit">Simpan Pembayaran</button>
+</form>
+<hr/>
+<h3 id="dpListTitle">Daftar DP Aktif</h3>
+<div class="tablewrap" id="dpTable"></div>
+</div>
+<!-- PENGELUARAN VIEW -->
+<div class="view hidden" id="pengeluaran">
+<h2>Catat Pengeluaran Operasional</h2>
+<form id="expenseForm" style="margin-top:14px">
+<div class="row">
+<label>Alasan Pengeluaran<input id="expenseReason" placeholder="Contoh: Makan siang, packaging, logistik" required=""/></label>
+<label>Nominal (Rp)<input id="expenseAmount" inputmode="numeric" placeholder="25 = Rp25.000" required="" type="text"/></label>
+</div>
+<button class="primary" style="align-self:flex-start" type="submit">Simpan Pengeluaran</button>
+</form>
+<hr/>
+<div class="cards">
+<div class="metric"><span>Uang Kotor Terkumpul</span><strong id="eKotor">Rp0</strong></div>
+<div class="metric"><span>Total Pengeluaran</span><strong id="eTotal">Rp0</strong></div>
+<div class="metric"><span>Uang Bersih Real-time</span><strong id="eBersih">Rp0</strong></div>
+</div>
+<p class="muted" style="margin-top:14px">Pengeluaran tercatat di ringkasan operasional. Uang bersih dihitung dari komisi lunas dikurangi total pengeluaran.</p>
+<hr/>
+<h3>Tabel Riwayat Pengeluaran</h3>
+<div class="tablewrap" id="expenseTable"></div>
+</div>
+<!-- HUTANG VIEW -->
+<div class="view hidden" id="hutang">
+<h2>Catat Hutang Baru</h2>
+<form id="debtForm" style="margin-top:14px">
+<div class="row">
+<label>Nominal Hutang (Rp)<input id="debtAmount" inputmode="numeric" placeholder="50 = Rp50.000" required="" type="text"/></label>
+<label>Keterangan / Kepada Siapa<input id="debtReason" placeholder="Contoh: Supplier botol, rekanan" required=""/></label>
+</div>
+<button class="primary" style="align-self:flex-start" type="submit">Simpan Catatan Hutang</button>
+</form>
+<hr/>
+<h3>Pembayaran / Cicil Hutang</h3>
+<form id="debtPayForm">
+<div class="row">
+<label>Pilih Hutang Terdaftar<select id="debtSelect" required=""></select></label>
+<label>Nominal Dibayar (Rp)<input id="debtPayAmount" inputmode="numeric" placeholder="Contoh: 20000" required="" type="text"/></label>
+</div>
+<button class="primary" style="align-self:flex-start" type="submit">Simpan Pembayaran Hutang</button>
+</form>
+<hr/>
+<div class="cards">
+<div class="metric"><span>Total Hutang Awal</span><strong id="dTotal">Rp0</strong></div>
+<div class="metric"><span>Sisa Hutang Berjalan</span><strong id="dSisa">Rp0</strong></div>
+</div>
+<hr/>
+<h3>Daftar Hutang Aktif</h3>
+<div class="tablewrap" id="debtTable"></div>
+</div>
+<!-- ARSIP VIEW -->
+<div class="view hidden" id="arsip">
+<h2>Arsip &amp; Rekap Bulanan</h2>
+<div style="margin-top:14px">
+<label>Pilih Bulan Periode<select id="archiveMonth"></select></label>
+<div class="actions" style="margin-top:14px">
+<button class="primary" id="showArchive" type="button">Lihat Rekap</button>
+<button id="saveRecap" type="button">Simpan Rekap</button>
+<button class="danger" id="closeMonth" type="button">Tutup Buku</button>
+<button id="resetSaldo" type="button">Reset Saldo</button>
+<button id="resetKotor" type="button">Reset Uang Kotor</button>
+<button id="resetPengeluaran" type="button">Reset Pengeluaran</button>
+</div>
+</div>
+<div id="archiveResult" style="margin-top:18px"></div>
+<p class="muted" style="margin-top:14px">Tutup Buku menyimpan arsip terlebih dahulu, lalu membersihkan transaksi periode yang sudah selesai dari tabel aktif. DP/cicilan yang masih PENDING dan hutang yang masih tersisa tetap aktif.</p>
+</div>
+<!-- DATA VIEW -->
+<div class="view hidden" id="data">
+<h2>Cadangan &amp; Pemulihan Database</h2>
+<p class="muted" style="margin-top:4px">Unduh cadangan JSON secara berkala. Semua data pembukuan Anda disimpan secara eksklusif di memori lokal peramban ini.</p>
+<div class="actions" style="margin-top:16px">
+<button class="primary" id="exportBtn" type="button">Unduh Backup JSON</button>
+<label class="btn">Impor Backup JSON<input accept="application/json,.json" id="importFile" style="display:none" type="file"/></label>
+</div>
+<hr/>
+<h3>Ekspor Tabel CSV (Spreadsheet)</h3>
+<div class="actions">
+<button id="csvSales" type="button">Penjualan CSV</button>
+<button id="csvDP" type="button">DP &amp; Cicilan CSV</button>
+<button id="csvExpenses" type="button">Pengeluaran CSV</button>
+<button id="csvDebt" type="button">Hutang CSV</button>
+</div>
+<hr/>
+<h3>Zona Bahaya</h3>
+<p class="muted">Tindakan ini akan mengosongkan seluruh database lokal pada browser ini. Pastikan Anda telah mengunduh backup JSON terlebih dahulu.</p>
+<button class="danger" id="clearBtn" style="margin-top:12px" type="button">Hapus Semua Data Lokal</button>
+</div>
+<!-- CHAT ASSISTANT VIEW -->
+<div class="view hidden" id="assistant">
+<div class="chat-layout">
+<div class="chat-header">
+<div class="chat-crown">👑</div>
+<div>
+<h2 id="botTitle" style="margin:0;font-size:16px">Asisten Bisnis</h2>
+<p class="muted" style="margin:2px 0 0">Chatbot mandiri tanpa server · panduan interaktif bernomor</p>
+</div>
+</div>
+<div aria-live="polite" class="chat-transcript" id="chatTranscript"></div>
+<form id="chatForm">
+<div class="chat-input-row">
+<input aria-label="Pesan ke bot" autocomplete="off" id="chatInput" placeholder="Tanyakan saldo, penjualan, atau ketik nomor panduan 1-11..."/>
+<button class="primary" type="submit">Kirim</button>
+</div>
+</form>
+<div class="actions">
+<button id="openLibrary" type="button">📚 Buka Perpustakaan</button>
+<button id="renameBot" type="button">✏️ Ganti Nama Bot</button>
+<button id="clearChat" type="button">Bersihkan Percakapan</button>
+</div>
+<hr/>
+<h3 class="library-section-title">PERPUSTAKAAN PANDUAN CEPAT</h3>
+<p class="library-section-subtitle">Klik panduan di bawah untuk melihat rincian langkah dan contoh langsung di obrolan bot.</p>
+<div class="library-list" id="libraryList"></div>
+</div>
+</div>
+</section>
+<!-- AUDIT LOG & RIWAYAT AKTIVITAS -->
+<section class="panel wide">
+<div class="panel-header">
+<h2>Riwayat Aktivitas &amp; Log Sistem</h2>
+</div>
+<div class="tablewrap" id="activityTable"></div>
+</section>
+</main>
+</div>
+</div>
+<!-- ANDROID / MOBILE BOTTOM NAVIGATION -->
+<div class="mobile-bottom-nav" id="mobileBottomNav">
+<button class="active" data-view="dashboard"><span class="nav-icon">▦</span><span>Dashboard</span></button>
+<button data-view="jualan"><span class="nav-icon">🛍</span><span>Jualan</span></button>
+<button data-view="dp"><span class="nav-icon">💳</span><span>DP/Cicil</span></button>
+<button data-view="pengeluaran"><span class="nav-icon">↘</span><span>Keluar</span></button>
+<button data-view="assistant"><span class="nav-icon">💬</span><span>Bot</span></button>
+</div>
+<!-- TOAST NOTIFICATION POPUP -->
+<div id="notice"></div>
+<!-- BOT SETUP MODAL -->
+<div aria-labelledby="setupTitle" aria-modal="true" class="setup-overlay hidden" id="botSetup" role="dialog">
+<div class="setup-card">
+<div style="font-size:36px;text-align:center">👑</div>
+<h2 id="setupTitle" style="text-align:center">Beri Nama Bot Bisnismu</h2>
+<p class="muted" style="text-align:center">Halo! Tentukan nama panggilan asisten keuangan pribadimu untuk memulai.</p>
+<form id="botSetupForm">
+<label>Nama Asisten Bot<input autocomplete="off" id="botNameInput" maxlength="32" placeholder="Contoh: Jarvis, PANN Advisor, Bos" required=""/></label>
+<button class="primary" id="btnSubmitBotName" style="width:100%;margin-top:6px;cursor:pointer;pointer-events:auto" type="submit">Simpan Nama Bot</button>
+</form>
+<small style="text-align:center;display:block">Tersimpan aman di memori lokal dan dapat diganti sewaktu-waktu.</small>
+</div>
+</div>
+<script>
+(() => {
+const KEY='pembukuan_offline_v1';
+const packages={
+ 'Whitening':{price:329000,commission:89000},
+ 'Luxury':{price:579000,commission:119000},
+ 'Royal':{price:829000,commission:179000}
+};
+const fresh=()=>({version:1,seq:{sale:0,dp:0,expense:0,debt:0,activity:0},sales:[],payments:[],expenses:[],debts:[],archives:[],activity:[],hangus:[],resetAt:null,kotorResetAt:null,saldoReset:null,kotorReset:null,expenseReset:null,netReset:null,monthKey:monthKey(new Date())});
+function monthKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+function dateText(d=new Date()){return d.toLocaleDateString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric'})}
+function money(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0)}
+function amountValue(id){const el=document.getElementById(id);let raw=String(el?.value||'').trim();if(!raw)return 0;let digits=raw.replace(/[^0-9.,]/g,'');if(/[.,]/.test(digits)){digits=digits.replace(/[.,]/g,'');return Number(digits)||0}return (Number(digits)||0)*1000}
+function localDateKey(str){const d=parseDate(str);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function load(){try{let x=JSON.parse(localStorage.getItem(KEY));if(x&&x.version===1){let d=Object.assign(fresh(),x);d.hangus=d.hangus||[];d.archives=d.archives||[];d.resetAt=d.resetAt||null;d.kotorResetAt=d.kotorResetAt||null;d.saldoReset=d.saldoReset||null;d.kotorReset=d.kotorReset||null;d.expenseReset=d.expenseReset||null;d.netReset=d.netReset||null;d.sales=(d.sales||[]).map(s=>Object.assign({daysLimit:30,extendedDays:0,closed:false,expiredHandled:false},s));return d}}catch(e){}return fresh()}
+let db=load();let dpListMode='DP';const PAGE_SIZE=10;const tablePages={sales:1,dp:1,cicilan:1,expense:1,debt:1,activity:1};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db));render();return true}catch(e){notify('Gagal menyimpan. Ekspor backup dan periksa ruang penyimpanan browser.');return false}}
+function notify(s){const n=document.getElementById('notice');n.textContent=s;n.style.display='block';setTimeout(()=>n.style.display='none',3200)}
+function activity(text){db.seq.activity++;db.activity.unshift({id:db.seq.activity,date:dateText(),text})}
+function timestampOf(x){return Number(x&& (x._lunasTs||x._ts))||0}
+function commissionTotal(){if(!db.saldoReset)return db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed).reduce((a,s)=>a+s.commission,0);let t=Number(db.saldoReset.at)||0;return db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed&&Number(s._lunasTs||0)>t).reduce((a,s)=>a+s.commission,0)}
+function salesTotal(){if(!db.saldoReset)return db.sales.reduce((a,s)=>a+s.price,0);let t=Number(db.saldoReset.at)||0;return db.sales.filter(s=>Number(s._ts||0)>t).reduce((a,s)=>a+s.price,0)}
+function totalHangus(){if(!db.saldoReset)return db.hangus.reduce((a,h)=>a+h.amount,0);let t=Number(db.saldoReset.at)||0;return db.hangus.filter(h=>Number(h._ts||0)>t).reduce((a,h)=>a+h.amount,0)}
+function currentKotor(){let t=db.kotorReset?Number(db.kotorReset.at):null;if(t===null&&!db.kotorResetAt)return db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed).reduce((a,s)=>a+s.commission,0)+db.hangus.reduce((a,h)=>a+h.amount,0);if(t===null)t=new Date(String(db.kotorResetAt).slice(0,10)+'T00:00:00').getTime();return db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed&&Number(s._lunasTs||0)>t).reduce((a,s)=>a+s.commission,0)+db.hangus.filter(h=>Number(h._ts||0)>t).reduce((a,h)=>a+h.amount,0)}
+function totalBottles(){if(!db.saldoReset)return db.sales.filter(s=>s.status==='LUNAS').length;let t=Number(db.saldoReset.at)||0;return db.sales.filter(s=>s.status==='LUNAS'&&Number(s._lunasTs||0)>t).length}
+function paymentTotal(type){let xs=db.payments.filter(p=>p.type===type);if(db.saldoReset){let t=Number(db.saldoReset.at)||0;xs=xs.filter(p=>Number(p._ts||0)>t)}return xs.reduce((a,p)=>a+p.amount,0)}
+function paidFor(s){return db.payments.filter(p=>p.saleId===s.id).reduce((a,p)=>a+p.amount,0)}
+function remainFor(s){return Math.max(0,s.price-paidFor(s))}
+function daysLeft(s){let start=parseDate(s.date),days=Number(s.daysLimit||30)+Number(s.extendedDays||0),elapsed=Math.floor((todayStart()-start)/86400000);return days-elapsed-1}
+function parseDate(str){if(!str)return new Date();let m=String(str).match(/(\d{2})\/(\d{2})\/(\d{4})/);return m?new Date(+m[3],+m[2]-1,+m[1]):new Date(str)}
+function todayStart(){let d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function expenseTotal(){const t=db.expenseReset?Number(db.expenseReset.at)||0:0;return db.expenses.filter(e=>!db.expenseReset||Number(e._ts||0)>t).reduce((a,e)=>a+e.amount,0)}
+function debtRemain(d){return Math.max(0,d.amount-d.paid)}
+function totalDebtRemain(){return db.debts.reduce((a,d)=>a+debtRemain(d),0)}
+function currentNetValue(){if(db.netReset){const t=Number(db.netReset.at)||0;return (Number(db.netReset.baseNet)||0)+db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed&&Number(s._lunasTs||0)>t).reduce((a,s)=>a+s.commission,0)-db.expenses.filter(e=>Number(e._ts||0)>t).reduce((a,e)=>a+e.amount,0)}if(db.saldoReset){const t=Number(db.saldoReset.at)||0;return (Number(db.saldoReset.baseNet)||0)+db.sales.filter(s=>s.status==='LUNAS'&&!s.commissionReversed&&Number(s._lunasTs||0)>t).reduce((a,s)=>a+s.commission,0)-db.expenses.filter(e=>Number(e._ts||0)>t).reduce((a,e)=>a+e.amount,0)}return commissionTotal()-db.expenses.reduce((a,e)=>a+e.amount,0)}
+function fmtDate(s){return esc(s||'')}
+function table(headers,rows){if(!rows.length)return '<div class="empty">Belum ada data tercatat di sistem.</div>';return '<table><thead><tr>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>'}
+function pagedTable(key,headers,items,rowFn){const total=items.length,pages=Math.max(1,Math.ceil(total/PAGE_SIZE));tablePages[key]=Math.min(Math.max(1,tablePages[key]||1),pages);const page=tablePages[key],start=(page-1)*PAGE_SIZE,part=items.slice(start,start+PAGE_SIZE);const body=table(headers,part.map((item,i)=>rowFn(item,start+i)));return body+(total>PAGE_SIZE?'<div class="pagination"><button type="button" data-page-table="'+key+'" data-page-action="prev" '+(page===1?'disabled':'')+'>Sebelumnya</button><span class="page-info">'+(start+1)+'–'+Math.min(start+PAGE_SIZE,total)+' dari '+total+' · Halaman '+page+'/'+pages+'</span><button type="button" data-page-table="'+key+'" data-page-action="next" '+(page===pages?'disabled':'')+'>Berikutnya</button></div>':'');}
+function tr(cells){return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>'}
+function render(){
+ const gross=commissionTotal(),ex=expenseTotal();const net=currentNetValue();
+ const metrics=[['mSaldo',gross],['mKotor',currentKotor()],['mKeluar',ex],['mBersih',net],['mPenjualan',salesTotal()],['mDP',paymentTotal('DP')],['mCicilan',paymentTotal('CICILAN')],['mHutang',totalDebtRemain()],['eKotor',currentKotor()],['eTotal',ex],['eBersih',net],['dTotal',db.debts.reduce((a,d)=>a+d.amount,0)],['dSisa',totalDebtRemain()]];
+ metrics.forEach(([id,v])=>{let el=document.getElementById(id);if(el)el.textContent=money(v)});
+ document.getElementById('mBotol').textContent=totalBottles()+' botol';document.getElementById('mHangus').textContent=money(totalHangus());
+ const salesRows=db.sales.filter(s=>s.mode!=='DP'&&s.mode==='JUAL'&&!s.closed);
+ document.getElementById('salesTable').innerHTML=pagedTable('sales',['No.','Tanggal','Nama','Paket','Harga','Komisi','Status','Aksi'],salesRows,(s,i)=>tr([i+1,fmtDate(s.date),esc(s.name),esc(s.package),money(s.price),money(s.commission),'<span class="tag">'+s.status+'</span>',s.status==='PENDING'?'<button data-action="markpaid" data-id="'+s.id+'">Tandai lunas</button>':'—']));
+ let list=db.sales.filter(s=>s.mode==='DP'&&!s.closed);let showList=list.filter(s=>(s.planType||db.payments.find(p=>p.saleId===s.id)?.type||'DP')===dpListMode);
+ document.getElementById('dpTable').innerHTML=dpListMode==='DP'?pagedTable('dp',['No.','Tanggal','Nama','Paket','Harga','Terbayar','Sisa','Status','Sisa hari / aksi','Riwayat bayar'],showList,(s,i)=>{let ps=db.payments.filter(p=>p.saleId===s.id),left=daysLeft(s),dayHtml=left>0?'<span class="days">'+left+' hari</span>':'<span class="days expired">— Hangus</span> <button data-action="extend" data-id="'+s.id+'">Edit</button> <button class="danger" data-action="expiredelete" data-id="'+s.id+'">Hapus</button>';return tr([i+1,fmtDate(s.date),esc(s.name),esc(s.package),money(s.price),money(paidFor(s)),money(remainFor(s)),'<span class="tag">'+s.status+'</span>',dayHtml,ps.map(p=>esc(p.type)+' '+money(p.amount)+' ('+esc(p.date)+')').join('<br>')||'—'])}):pagedTable('cicilan',['No.','Tanggal','Nama','Paket','Terbayar','Sisa','Status','Riwayat cicilan'],showList,(s,i)=>tr([i+1,fmtDate(s.date),esc(s.name),esc(s.package),money(paidFor(s)),money(remainFor(s)),'<span class="tag">'+s.status+'</span>',db.payments.filter(p=>p.saleId===s.id&&p.type==='CICILAN').map(p=>money(p.amount)+' ('+esc(p.date)+')').join('<br>')]));
+ let cat=document.getElementById('payCatDP').classList.contains('active')?'DP':'CICILAN';let selectable=db.sales.filter(s=>s.mode==='DP'&&!s.closed&&s.status!=='LUNAS'&&s.status!=='HANGUS'&&(s.planType||db.payments.find(p=>p.saleId===s.id)?.type||'DP')===cat);
+ let select=document.getElementById('paySale'),prev=select.value;select.innerHTML=selectable.length?selectable.map(s=>'<option value="'+s.id+'">#'+s.id+' — '+esc(s.name)+' — Sisa '+money(remainFor(s))+'</option>').join(''):'<option value="">Tidak ada transaksi '+(cat==='DP'?'DP':'cicilan')+' yang belum lunas</option>';if(selectable.some(s=>String(s.id)===prev))select.value=prev;
+ renderPaySearch();
+ document.getElementById('expenseTable').innerHTML=pagedTable('expense',['No.','Tanggal','Alasan','Nominal'],db.expenses.filter(e=>!e.closed),(e,i)=>tr([i+1,fmtDate(e.date),esc(e.reason),money(e.amount)]));
+ document.getElementById('debtTable').innerHTML=pagedTable('debt',['No.','Tanggal','Keterangan','Hutang awal','Dibayar','Sisa'],db.debts.filter(d=>!d.closed),(d,i)=>tr([i+1,fmtDate(d.date),esc(d.reason),money(d.amount),money(d.paid),money(debtRemain(d))]));
+ document.getElementById('debtSelect').innerHTML=db.debts.filter(d=>debtRemain(d)>0).map(d=>'<option value="'+d.id+'">#'+d.id+' — '+esc(d.reason)+' / sisa '+money(debtRemain(d))+'</option>').join('')||'<option value="">Tidak ada hutang tersisa</option>';
+ document.getElementById('activityTable').innerHTML=pagedTable('activity',['Tanggal','Aktivitas'],db.activity,(a)=>tr([fmtDate(a.date),esc(a.text)]));
+ const month=document.getElementById('archiveMonth'),old=month.value;const months=new Set([monthKey(new Date()),...db.archives.map(a=>a.month),...db.sales.map(s=>s.month),...db.expenses.map(e=>e.month),...db.debts.map(d=>d.month)]);month.innerHTML=[...months].sort().reverse().map(m=>'<option value="'+m+'">'+monthName(m)+'</option>').join('');if([...months].includes(old))month.value=old;
+}
+function renderPaySearch(){let q=(document.getElementById('paySearch')?.value||'').trim().toLowerCase(),cat=document.getElementById('payCatDP')?.classList.contains('active')?'DP':'CICILAN';let xs=db.sales.filter(s=>s.mode==='DP'&&!s.closed&&s.status!=='LUNAS'&&s.status!=='HANGUS'&&(s.planType||db.payments.find(p=>p.saleId===s.id)?.type||'DP')===cat&&(!q||String(s.id).includes(q)||s.name.toLowerCase().includes(q)));document.getElementById('paySearchResults').innerHTML=xs.length?xs.map(s=>'<button type="button" class="search-item" data-action="choosepay" data-id="'+s.id+'"><strong>#'+s.id+' — '+esc(s.name)+'</strong><small>'+esc(s.package)+' · Sisa '+money(remainFor(s))+'</small></button>').join(''):'<div class="empty">Tidak ada transaksi yang cocok.</div>'}
+
+function monthName(m){let [y,mo]=m.split('-');return new Date(Number(y),Number(mo)-1,1).toLocaleDateString('id-ID',{month:'long',year:'numeric'})}
+const viewTitles = {
+  dashboard: 'Ringkasan Saldo',
+  jualan: 'Catat Penjualan',
+  dp: 'DP & Cicilan',
+  pengeluaran: 'Catat Pengeluaran',
+  hutang: 'Manajemen Hutang',
+  arsip: 'Arsip & Rekap Bulanan',
+  data: 'Cadangan & Pemulihan',
+  assistant: 'Asisten Bisnis'
+};
+function switchView(v){
+  document.querySelectorAll('.view').forEach(e=>e.classList.add('hidden'));
+  document.getElementById(v)?.classList.remove('hidden');
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  document.querySelectorAll('#mobileBottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  document.getElementById('sidebarContainer')?.classList.remove('mobile-open');
+  document.getElementById('sidebarBackdrop')?.classList.remove('active');
+  document.getElementById('homeToggle')?.setAttribute('aria-expanded','false');
+  const titleEl=document.getElementById('currentViewTitle');
+  if(titleEl&&viewTitles[v]) titleEl.textContent=viewTitles[v];
+  if(v==='jualan') document.getElementById('saleName')?.focus({preventScroll:true});
+}
+
+// Drawer Toggle on Mobile
+document.getElementById('homeToggle').addEventListener('click',()=>{
+  const sidebar = document.getElementById('sidebarContainer');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  const isOpen = sidebar.classList.toggle('mobile-open');
+  backdrop.classList.toggle('active', isOpen);
+  document.getElementById('homeToggle').setAttribute('aria-expanded', String(isOpen));
+});
+document.getElementById('sidebarBackdrop').addEventListener('click',()=>{
+  document.getElementById('sidebarContainer').classList.remove('mobile-open');
+  document.getElementById('sidebarBackdrop').classList.remove('active');
+  document.getElementById('homeToggle').setAttribute('aria-expanded', 'false');
+});
+
+document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-view]');if(b)switchView(b.dataset.view)});
+document.getElementById('mobileBottomNav').addEventListener('click',e=>{let b=e.target.closest('button[data-view]');if(b)switchView(b.dataset.view)});
+
+function updatePackageUI(){let p=packages[document.getElementById('salePackage').value];document.getElementById('salePrice').textContent=money(p.price);document.getElementById('saleCommission').textContent=money(p.commission);document.getElementById('dpPrice').value=packages[document.getElementById('dpPackage').value].price.toLocaleString('id-ID')}
+document.getElementById('salePackage').addEventListener('change',updatePackageUI);document.getElementById('dpPackage').addEventListener('change',()=>{document.getElementById('dpPrice').value=packages[document.getElementById('dpPackage').value].price.toLocaleString('id-ID')});
+document.getElementById('saleForm').addEventListener('submit',e=>{e.preventDefault();let name=document.getElementById('saleName').value.trim(),pack=document.getElementById('salePackage').value,status=document.getElementById('saleStatus').value,p=packages[pack];if(!confirm('Simpan penjualan '+name+' — '+pack+' — '+money(p.price)+' — komisi '+money(p.commission)+' — status '+status+'?'))return;db.seq.sale++;let s={id:db.seq.sale,date:dateText(),month:monthKey(new Date()),name,package:pack,price:p.price,commission:p.commission,status,mode:'JUAL',note:document.getElementById('saleNote').value.trim(),commissionReversed:false,_ts:Date.now(),_lunasTs:status==='LUNAS'?Date.now():0};db.sales.push(s);activity('Penjualan #'+s.id+' '+name+' '+pack+' ('+status+')');save();e.target.reset();updatePackageUI();notify('Penjualan tersimpan.')});
+document.getElementById('dpForm').addEventListener('submit',e=>{e.preventDefault();let name=document.getElementById('dpName').value.trim(),pack=document.getElementById('dpPackage').value,price=amountValue('dpPrice'),amount=amountValue('dpAmount');if(amount>=price){notify('Untuk transaksi DP baru, nominal DP harus kurang dari harga. Jika lunas penuh, catat sebagai Penjualan.');return}if(!confirm('Buat transaksi DP baru untuk '+name+' — '+pack+'? Harga '+money(price)+', DP '+money(amount)+', sisa '+money(price-amount)+'. Komisi belum masuk sampai lunas.'))return;db.seq.sale++;let planType=document.getElementById('catCicilan').classList.contains('active')?'CICILAN':'DP';let s={id:db.seq.sale,date:dateText(),month:monthKey(new Date()),name,package:pack,price,commission:packages[pack].commission,status:'PENDING',mode:'DP',planType,daysLimit:Number(document.getElementById('dpDays').value)||30,extendedDays:0,closed:false,note:document.getElementById('dpNote').value.trim(),commissionReversed:false,_ts:Date.now(),_lunasTs:0};db.sales.push(s);db.payments.push({saleId:s.id,type:planType,amount,date:dateText(),month:monthKey(new Date()),_ts:Date.now()});activity((planType==='DP'?'DP baru #':'Cicilan baru #')+s.id+' '+name+' '+money(amount));if(amount===price){s.status='LUNAS';s._lunasTs=Date.now()}save();e.target.reset();document.getElementById('dpPrice').value=packages[document.getElementById('dpPackage').value].price.toLocaleString('id-ID');notify(planType==='DP'?'DP baru tersimpan.':'Cicilan baru tersimpan.')});
+document.getElementById('payForm').addEventListener('submit',e=>{e.preventDefault();let id=Number(document.getElementById('paySale').value),s=db.sales.find(x=>x.id===id),amount=amountValue('payAmount');if(!s){notify('Pilih transaksi yang benar.');return}let remaining=remainFor(s);if(amount>remaining){notify('Nominal melebihi sisa '+money(remaining));return}if(!confirm('Catat pembayaran '+money(amount)+' untuk transaksi #'+id+' '+s.name+'? Sisa setelah bayar: '+money(remaining-amount)+'.'))return;let payType=document.getElementById('payCatDP').classList.contains('active')?'DP':'CICILAN';db.payments.push({saleId:id,type:payType,amount,date:dateText(),month:monthKey(new Date()),_ts:Date.now()});if(remaining-amount===0){s.status='LUNAS';s._lunasTs=Date.now();activity('Transaksi #'+id+' LUNAS; komisi '+money(s.commission)+' masuk saldo')}else activity('Pembayaran #'+id+' '+money(amount)+'; sisa '+money(remaining-amount));save();e.target.reset();notify(remaining-amount===0?'Lunas! Komisi masuk saldo satu kali.':'Pembayaran tersimpan.')});
+document.getElementById('paySearch').addEventListener('input',renderPaySearch);
+function setPayCategory(cat){document.getElementById('payCatDP').classList.toggle('active',cat==='DP');document.getElementById('payCatCicilan').classList.toggle('active',cat==='CICILAN');document.getElementById('paySearch').value='';render();}
+document.getElementById('payCatDP').addEventListener('click',()=>setPayCategory('DP'));document.getElementById('payCatCicilan').addEventListener('click',()=>setPayCategory('CICILAN'));
+document.getElementById('paySearchResults').addEventListener('click',e=>{let b=e.target.closest('[data-action="choosepay"]');if(b){document.getElementById('paySale').value=b.dataset.id;document.getElementById('paySearch').value=b.querySelector('strong').textContent.split('—').slice(1).join('—').trim();renderPaySearch();}});
+function setNewPlanCategory(cat){document.getElementById('catDP').classList.toggle('active',cat==='DP');document.getElementById('catCicilan').classList.toggle('active',cat==='CICILAN');document.getElementById('dpEntryArea').classList.remove('hidden');dpListMode=cat;document.getElementById('dpListTitle').textContent=cat==='DP'?'Daftar DP':'Daftar Cicilan';document.getElementById('saveNewPlan').textContent=cat==='DP'?'Simpan DP baru':'Simpan Cicilan Baru';document.getElementById('dpAmountLabel').childNodes[0].textContent=cat==='DP'?'DP awal (Rp)':'Pembayaran awal (Rp)';render();}
+document.getElementById('catDP').addEventListener('click',()=>setNewPlanCategory('DP'));
+document.getElementById('catCicilan').addEventListener('click',()=>setNewPlanCategory('CICILAN'));
+document.getElementById('dpTable').addEventListener('click',e=>{let b=e.target.closest('button[data-action]');if(!b)return;let s=db.sales.find(x=>x.id===Number(b.dataset.id));if(!s)return;if(b.dataset.action==='extend'){let days=prompt('Tambahkan berapa hari untuk '+s.name+'?', '7');if(days===null)return;days=Number(days);if(!Number.isFinite(days)||days<1){notify('Masukkan jumlah hari yang valid.');return}s.extendedDays=Number(s.extendedDays||0)+days;activity('Perpanjangan waktu transaksi #'+s.id+' '+days+' hari');save();notify('Waktu berhasil diperpanjang.');}if(b.dataset.action==='expiredelete'){if(daysLeft(s)>0){notify('Transaksi belum hangus.');return}if(!confirm('Hapus transaksi hangus '+s.name+'? Total DP dan cicilan '+money(paidFor(s))+' akan dicatat sebagai Total Uang Hangus.'))return;let amount=paidFor(s);db.hangus.push({saleId:s.id,name:s.name,amount,date:dateText(),month:monthKey(new Date()),_ts:Date.now()});s.expiredHandled=true;s.status='HANGUS';activity('Transaksi #'+s.id+' hangus '+money(amount));save();notify('Uang hangus dicatat ke ringkasan, uang kotor, dan pengeluaran.');}});
+document.getElementById('salesTable').addEventListener('click',e=>{let b=e.target.closest('[data-action="markpaid"]');if(!b)return;let s=db.sales.find(x=>x.id===Number(b.dataset.id));if(!s)return;if(!confirm('Tandai transaksi #'+s.id+' '+s.name+' sebagai LUNAS? Pastikan seluruh pembayaran sudah diterima.'))return;s.status='LUNAS';s._lunasTs=Date.now();activity('Penjualan #'+s.id+' ditandai LUNAS; komisi '+money(s.commission)+' masuk saldo');save()});
+document.getElementById('expenseForm').addEventListener('submit',e=>{e.preventDefault();let reason=document.getElementById('expenseReason').value.trim(),amount=amountValue('expenseAmount');if(!confirm('Simpan pengeluaran '+reason+' sebesar '+money(amount)+'? Saldo komisi tetap, uang bersih akan berkurang.'))return;db.seq.expense++;db.expenses.push({id:db.seq.expense,date:dateText(),month:monthKey(new Date()),reason,amount,_ts:Date.now()});activity('Pengeluaran #'+db.seq.expense+' '+reason+' '+money(amount));save();e.target.reset();notify('Pengeluaran tersimpan.')});
+document.getElementById('debtForm').addEventListener('submit',e=>{e.preventDefault();let amount=amountValue('debtAmount'),reason=document.getElementById('debtReason').value.trim();if(!confirm('Catat hutang '+money(amount)+' — '+reason+'?'))return;db.seq.debt++;db.debts.push({id:db.seq.debt,date:dateText(),month:monthKey(new Date()),amount,paid:0,reason,payments:[],_ts:Date.now()});activity('Hutang #'+db.seq.debt+' '+reason+' '+money(amount));save();e.target.reset()});
+document.getElementById('debtPayForm').addEventListener('submit',e=>{e.preventDefault();let d=db.debts.find(x=>x.id===Number(document.getElementById('debtSelect').value)),amount=amountValue('debtPayAmount');if(!d){notify('Pilih hutang.');return}if(amount>debtRemain(d)){notify('Nominal melebihi sisa hutang.');return}if(!confirm('Catat pembayaran hutang '+money(amount)+' untuk '+d.reason+'?'))return;d.paid+=amount;d.payments.push({amount,date:dateText()});activity('Bayar hutang #'+d.id+' '+money(amount));save();e.target.reset()});
+function recapData(m){let sales=db.sales.filter(s=>s.month===m),closed=sales.filter(s=>s.status==='LUNAS'),gross=closed.reduce((a,s)=>a+s.commission,0),expenses=db.expenses.filter(x=>x.month===m).reduce((a,x)=>a+x.amount,0),salesValue=sales.reduce((a,s)=>a+s.price,0),dp=db.payments.filter(p=>p.month===m&&p.type==='DP').reduce((a,p)=>a+p.amount,0),cic=db.payments.filter(p=>p.month===m&&p.type==='CICILAN').reduce((a,p)=>a+p.amount,0),hang=db.hangus.filter(h=>h.month===m).reduce((a,h)=>a+h.amount,0),bottles=closed.length,remaining=totalDebtRemain();return {gross,expenses:expenses+hang,net:gross-expenses,sales:salesValue,dp,cic,hang,bottles,remaining,commission:gross}}
+function makeArchive(m){let metrics=recapData(m);return {month:m,savedAt:dateText(),metrics,transactions:{sales:db.sales.filter(s=>s.month===m).map(s=>({id:s.id,date:s.date,name:s.package,price:s.commission,status:s.status,mode:s.mode,planType:s.planType||null})),payments:db.payments.filter(p=>p.month===m).map(p=>({saleId:p.saleId,type:p.type,amount:p.amount,date:p.date})),expenses:db.expenses.filter(e=>e.month===m).map(e=>({id:e.id,date:e.date,reason:e.reason,amount:e.amount})),hangus:db.hangus.filter(h=>h.month===m).map(h=>({saleId:h.saleId,name:h.name,amount:h.amount,date:h.date})),debts:db.debts.filter(d=>d.month===m).map(d=>({id:d.id,date:d.date,reason:d.reason,amount:d.amount,paid:d.paid,remaining:debtRemain(d),payments:d.payments||[]}))}}}
+function saveArchive(m){let a=makeArchive(m),idx=db.archives.findIndex(x=>x.month===m);if(idx>=0){a.savedAt=dateText();db.archives[idx]=a}else db.archives.push(a);return a}
+function renderRecap(m){let a=db.archives.find(x=>x.month===m),d=a?(a.metrics||a):recapData(m),labels=[['Uang Kotor / Komisi Lunas',(Number(d.gross)||0)+(Number(d.hang)||0)],['Komisi Terkumpul',Number(d.commission)||0],['Total Pengeluaran',Number(d.expenses)||0],['Uang Bersih',Number(d.net)||0],['Total Nilai Penjualan',Number(d.sales)||0],['Total DP Masuk',Number(d.dp)||0],['Total Cicilan Masuk',Number(d.cic)||0],['Total Uang Hangus',Number(d.hang)||0],['Total Botol',(Number(d.bottles)||0)+' botol'],['Sisa Hutang',Number(d.remaining)||0]];let detail=a&&a.transactions?'<p class="muted">Arsip menyimpan '+a.transactions.sales.length+' transaksi penjualan/DP/cicilan, '+a.transactions.payments.length+' pembayaran, dan '+a.transactions.expenses.length+' catatan pengeluaran dan '+(a.transactions.debts||[]).length+' catatan hutang untuk bulan ini.</p>':'';document.getElementById('archiveResult').innerHTML='<hr><h3>Recap '+monthName(m)+'</h3><div class="cards">'+labels.map(([l,v])=>'<div class="metric"><span>'+l+'</span><strong>'+(typeof v==='string'?esc(v):money(v))+'</strong></div>').join('')+'</div><p class="muted">'+(a?'Recap tersimpan pada '+esc(a.savedAt)+'. Data arsip tidak berubah saat transaksi aktif berubah.':'Pratinjau belum disimpan. Tekan “Simpan Recap” untuk mengarsipkan laporan bulan ini.')+'</p>'+detail;}
+document.getElementById('showArchive').addEventListener('click',()=>renderRecap(document.getElementById('archiveMonth').value));
+document.getElementById('saveRecap').addEventListener('click',()=>{let m=document.getElementById('archiveMonth').value||monthKey(new Date());if(!confirm('Simpan snapshot Recap '+monthName(m)+'? Arsip bulan ini akan diperbarui dengan kondisi data saat ini.'))return;saveArchive(m);if(save()){renderRecap(m);notify('Recap '+monthName(m)+' berhasil disimpan.')}});
+document.getElementById('closeMonth').addEventListener('click',()=>{let m=monthKey(new Date());if(!confirm('Tutup Buku '+monthName(m)+'? Arsip bulan ini disimpan dulu. Riwayat aktivitas dan transaksi selesai pada periode ini dibersihkan dari tabel aktif. DP/cicilan PENDING dan hutang yang masih tersisa tetap aktif.'))return;saveArchive(m);db.sales.forEach(s=>{if(s.month===m&&(s.mode==='JUAL'||(s.mode==='DP'&&(s.status==='LUNAS'||s.status==='HANGUS'))))s.closed=true});db.expenses.forEach(x=>{if(x.month===m)x.closed=true});db.debts.forEach(d=>{if(debtRemain(d)<=0)d.closed=true});db.activity=[];db.seq.activity=0;Object.keys(tablePages).forEach(k=>tablePages[k]=1);if(save()){renderRecap(m);notify('Tutup Buku selesai. Arsip tersimpan; DP/cicilan PENDING dan hutang tersisa tetap aktif.')}});
+document.getElementById('resetSaldo').addEventListener('click',()=>{if(!confirm('Reset Saldo akan mengosongkan saldo/komisi terkumpul, total penjualan, total DP masuk, total cicilan masuk, total botol, dan total uang hangus. Uang bersih saat ini dipertahankan; uang kotor, pengeluaran, hutang, riwayat, recap, serta DP/cicilan PENDING tidak dihapus. Lanjutkan?'))return;let baseNet=currentNetValue();const resetTime=Date.now();db.saldoReset={at:resetTime,baseNet};db.netReset={at:resetTime,baseNet};db.resetAt=new Date().toISOString();Object.keys(tablePages).forEach(k=>tablePages[k]=1);save();notify('Reset Saldo selesai. Uang bersih, uang kotor, pengeluaran, dan hutang tetap dipertahankan.')});
+document.getElementById('resetKotor').addEventListener('click',()=>{if(!confirm('Reset Uang Kotor saja menjadi Rp0? Saldo/komisi terkumpul, total penjualan, DP/cicilan, botol, uang bersih, pengeluaran, hutang, riwayat, dan recap tidak diubah. Lanjutkan?'))return;db.kotorReset={at:Date.now()};db.kotorResetAt=new Date().toISOString();save();notify('Uang Kotor direset. Data lain tetap aman.')});
+document.getElementById('resetPengeluaran').addEventListener('click',()=>{if(!confirm('Reset Uang Pengeluaran menjadi Rp0? Riwayat pengeluaran tetap tersimpan dan tetap terlihat sampai Tutup Buku. Saldo, uang kotor, hutang, transaksi, dan uang bersih saat ini tidak berubah. Lanjutkan?'))return;const now=Date.now();const currentNet=currentNetValue();db.expenseReset={at:now};db.netReset={at:now,baseNet:currentNet};activity('Reset Uang Pengeluaran; riwayat transaksi dipertahankan');save();notify('Uang Pengeluaran direset ke Rp0. Riwayat tetap tersimpan dan uang bersih dipertahankan.')});
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+document.getElementById('exportBtn').addEventListener('click',()=>download('backup-pembukuan-'+monthKey(new Date())+'.json',JSON.stringify(db,null,2),'application/json'));
+document.getElementById('importFile').addEventListener('change',async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x||x.version!==1||!Array.isArray(x.sales)||!Array.isArray(x.expenses))throw Error();if(!confirm('Impor backup akan mengganti data saat ini. Lanjutkan?'))return;db=Object.assign(fresh(),x);save();notify('Backup berhasil diimpor.')}catch(err){notify('File backup tidak valid.')}e.target.value=''});
+function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function exportCSV(name,headers,rows){download(name,[headers,...rows].map(r=>r.map(csv).join(',')).join('\r\n'),'text/csv;charset=utf-8')}
+document.getElementById('csvSales').addEventListener('click',()=>exportCSV('penjualan.csv',['No','Tanggal','Nama','Paket','Harga','Komisi','Status','Mode'],db.sales.map(s=>[s.id,s.date,s.name,s.package,s.price,s.commission,s.status,s.mode])));
+document.getElementById('csvDP').addEventListener('click',()=>exportCSV('dp-cicilan.csv',['No Transaksi','Nama','Paket','Jenis','Nominal','Tanggal'],db.payments.map(p=>{let s=db.sales.find(x=>x.id===p.saleId);return[p.saleId,s?.name,s?.package,p.type,p.amount,p.date]})));
+document.getElementById('csvExpenses').addEventListener('click',()=>exportCSV('pengeluaran.csv',['No','Tanggal','Alasan','Nominal'],db.expenses.map(x=>[x.id,x.date,x.reason,x.amount])));
+document.getElementById('csvDebt').addEventListener('click',()=>exportCSV('hutang.csv',['No','Tanggal','Keterangan','Awal','Dibayar','Sisa'],db.debts.map(d=>[d.id,d.date,d.reason,d.amount,d.paid,debtRemain(d)])));
+document.querySelector('main').addEventListener('click',e=>{const b=e.target.closest('button[data-page-table][data-page-action]');if(!b)return;const key=b.dataset.pageTable,action=b.dataset.pageAction;if(!(key in tablePages))return;tablePages[key]=Math.max(1,tablePages[key]+(action==='next'?1:-1));render();const target=document.getElementById(({sales:'salesTable',dp:'dpTable',cicilan:'dpTable',expense:'expenseTable',debt:'debtTable',activity:'activityTable'})[key]);target?.scrollIntoView({behavior:'smooth',block:'nearest'});});
+document.getElementById('clearBtn').addEventListener('click',()=>{if(!confirm('PERINGATAN: Hapus semua data pembukuan dari browser ini? Ekspor backup dulu jika dibutuhkan.'))return;if(!confirm('Konfirmasi terakhir: semua data lokal akan dihapus. Lanjutkan?'))return;db=fresh();save();notify('Semua data lokal dihapus.')});
+
+// Asisten lokal dan perpustakaan panduan bernomor. Tidak memakai internet/API.
+const BOT_NAME_KEY='pann_bisnis_bot_name_v1';
+const CHAT_KEY='pann_bisnis_chat_history_v1';
+let botName='Asisten Bisnis';
+try{
+  const storedName=(localStorage.getItem(BOT_NAME_KEY)||'').trim();
+  if(storedName) botName=storedName;
+  else localStorage.setItem(BOT_NAME_KEY, botName);
+}catch(e){}
+
+const guides=[
+{title:'Panduan Mengisi Penjualan',body:'CARA MENGISI PENJUALAN\n1. Buka menu Penjualan.\n2. Isi nama pelanggan.\n3. Pilih paket. Harga dan komisi akan muncul otomatis.\n4. Pilih status transaksi. Gunakan LUNAS hanya jika pembayaran sudah selesai.\n5. Tambahkan catatan bila perlu, lalu tekan Simpan penjualan.\n\nCONTOH\nNama: Andi\nPaket: Whitening\nHarga: Rp329.000\nKomisi: Rp89.000\nStatus: LUNAS jika sudah dibayar penuh.\n\nPERHATIAN: Periksa nama, paket, dan status sebelum menyimpan.'},
+{title:'Panduan Mengisi DP',body:'CARA MENGISI DP\n1. Buka menu DP & Cicilan, pilih Memulai DP.\n2. Isi nama pelanggan dan paket.\n3. Periksa harga paket, masukkan DP awal, dan atur batas pembayaran.\n4. Tekan Simpan DP baru.\n\nCONTOH\nNama: Andi\nHarga: Rp329.000\nDP awal: Rp29.000\nSisa awal: Rp300.000.\n\nPERHATIAN: DP awal harus lebih kecil dari harga penuh. Pembayaran tercatat dalam riwayat.'},
+{title:'Panduan Mengisi Cicilan',body:'CARA MENGISI CICILAN\n1. Buka menu DP & Cicilan.\n2. Pilih Cicilan Baru untuk membuat transaksi cicilan, atau gunakan bagian Tambah Pembayaran untuk transaksi yang sudah ada.\n3. Pilih transaksi pelanggan yang benar.\n4. Masukkan nominal pembayaran dan simpan.\n\nCONTOH\nHarga Rp329.000, sudah dibayar Rp29.000, sisa Rp300.000. Jika membayar lagi Rp100.000, sisa menjadi Rp200.000.\n\nPERHATIAN: Pastikan memilih pelanggan yang benar dan nominal tidak melebihi sisa tagihan.'},
+{title:'Panduan Mengisi Pengeluaran',body:'CARA MENCATAT PENGELUARAN\n1. Buka menu Pengeluaran.\n2. Isi alasan pengeluaran.\n3. Masukkan nominal. Untuk kolom nominal yang memakai format ribuan, ikuti petunjuk di kolom.\n4. Tekan Simpan pengeluaran.\n\nCONTOH\nAlasan: Makan\nNominal: Rp25.000\n\nPERHATIAN: Catat pengeluaran sesegera mungkin agar uang bersih lebih akurat.'},
+{title:'Panduan Mengelola Hutang',body:'CARA MENCATAT DAN MEMBAYAR HUTANG\n1. Buka menu Hutang.\n2. Isi nominal hutang dan keterangannya, lalu simpan.\n3. Untuk membayar, pilih hutang yang benar.\n4. Isi nominal pembayaran dan simpan. Sisa hutang dihitung dari hutang awal dikurangi yang sudah dibayar.\n\nCONTOH\nHutang awal Rp100.000, bayar Rp25.000, sisa Rp75.000.\n\nPERHATIAN: Periksa keterangan dan sisa hutang setelah transaksi.'},
+{title:'Panduan Membaca Saldo',body:'MEMBACA RINGKASAN\nBuka Ringkasan dari menu Home. Di sana ada saldo/komisi terkumpul, uang kotor, total pengeluaran, uang bersih, penjualan, DP masuk, cicilan masuk, sisa hutang, total botol, dan uang hangus.\n\nCONTOH\nKomisi lunas Rp89.000 dan pengeluaran Rp25.000 menghasilkan uang bersih Rp64.000 jika belum ada penyesuaian reset lain.\n\nPERHATIAN: Saldo, uang kotor, dan uang bersih adalah angka berbeda. Baca labelnya sebelum mengambil keputusan.'},
+{title:'Panduan Tutup Buku',body:'CARA TUTUP BUKU\n1. Buka Arsip Bulanan.\n2. Pilih bulan yang mau ditutup dan pastikan datanya benar.\n3. Simpan Recap terlebih dahulu jika diperlukan.\n4. Tekan Tutup Buku dan baca konfirmasi sebelum menyetujui.\n\nTutup Buku mengarsipkan periode sebelum membersihkan transaksi selesai dari tabel aktif. DP/cicilan yang masih PENDING dan hutang yang masih tersisa tetap aktif sesuai aturan aplikasi.\n\nPERHATIAN: Ekspor backup JSON sebelum menutup periode adalah kebiasaan yang aman.'},
+{title:'Panduan Reset Saldo',body:'CARA RESET SALDO\n1. Buka Arsip Bulanan.\n2. Tekan Reset Saldo.\n3. Baca konfirmasi dengan teliti sebelum menyetujui.\n\nReset ini mengatur ulang metrik saldo/komisi terkumpul, total penjualan, total DP masuk, total cicilan masuk, total botol, dan uang hangus sesuai aturan aplikasi. Uang bersih, uang kotor, pengeluaran, hutang, riwayat, recap, dan DP/cicilan PENDING dipertahankan.\n\nPERHATIAN: Reset bukan pengganti backup.'},
+{title:'Panduan Reset Uang Kotor dan Pengeluaran',body:'RESET TERPISAH\n• Reset Uang Kotor: hanya mengatur ulang hitungan uang kotor; data lain tetap dipertahankan.\n• Reset Uang Pengeluaran: mengatur ulang hitungan total pengeluaran; riwayat pengeluaran tetap ada.\n\nCara: buka Arsip Bulanan dan pilih tombol reset yang sesuai, lalu baca konfirmasi.\n\nPERHATIAN: Pastikan memilih tombol yang benar karena setiap reset punya fungsi berbeda.'},
+{title:'Panduan Backup dan Restore',body:'BACKUP DATA\n1. Buka Cadangan Data.\n2. Tekan Unduh backup JSON dan simpan file di tempat aman.\n\nRESTORE DATA\n1. Buka Cadangan Data.\n2. Pilih Impor backup JSON.\n3. Pilih file backup yang benar dan konfirmasi jika diminta.\n\nPERHATIAN: Backup JSON mencakup data aplikasi yang disimpan. Jangan bagikan file backup ke orang yang tidak dipercaya.'},
+{title:'Daftar Command dan Cara Memakai Bot',body:'COMMAND PERPUSTAKAAN\n• /bantuan — tampilkan daftar panduan.\n• /command — lihat daftar command.\n• /panduan — tampilkan perpustakaan.\n• /cari kata — cari panduan berdasarkan kata.\n• /nama — ganti nama bot.\n• Ketik angka 1–11 — buka panduan sesuai nomor.\n\nLo juga bisa bertanya seperti “berapa total penjualan?”, “berapa sisa hutang?”, “berapa pengeluaran?”, atau “ringkasan saldo”.\n\nCATATAN: Bot ini berjalan offline dengan perintah dan pola jawaban lokal. Ia bukan model bahasa online seperti ChatGPT, jadi pertanyaan di luar fungsi yang tersedia mungkin tidak dipahami.'}
+];
+function getChatHistory(){try{const x=JSON.parse(localStorage.getItem(CHAT_KEY)||'[]');return Array.isArray(x)?x.slice(-60):[]}catch(e){return []}}
+let chatHistory=getChatHistory();
+function saveChatHistory(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chatHistory.slice(-60)))}catch(e){}}
+function addChat(role,text){chatHistory.push({role,text:String(text)});if(chatHistory.length>60)chatHistory=chatHistory.slice(-60);saveChatHistory();renderChat()}
+function renderChat(){const el=document.getElementById('chatTranscript');if(!el)return;el.innerHTML=chatHistory.map(m=>'<div class="chat-bubble '+(m.role==='user'?'chat-user':'chat-bot')+'">'+esc(m.text)+'</div>').join('');el.scrollTop=el.scrollHeight;const title=document.getElementById('botTitle');if(title)title.textContent=botName||'Asisten Bisnis';}
+function renderLibrary(){
+  const el=document.getElementById('libraryList');
+  if(!el)return;
+  el.innerHTML=guides.map((g,i)=>'<button type="button" class="library-item" data-guide="'+(i+1)+'"><span class="library-num">'+(i+1)+'.</span><span class="library-item-title">'+esc(g.title)+'</span></button>').join('');
+}
+function showGuide(n){const g=guides[Number(n)-1];if(!g){addChat('bot','Nomor panduan tidak ditemukan. Silakan ketik “bantuan” untuk melihat daftar panduan yang tersedia.');return}addChat('bot','📚 '+g.title+'\n\n'+g.body)}
+function helpList(){return 'PERPUSTAKAAN PANDUAN CEPAT\n'+guides.map((g,i)=>(i+1)+'. '+g.title).join('\n')+'\n\nKetik nomor 1–11 untuk membuka cara penggunaan dan contoh.'}
+function respondChat(raw){const q=String(raw||'').trim(),l=q.toLowerCase();if(!q)return;
+// Recap arsip: contoh 'recap september' atau 'recap september 2025'.
+const monthAliases={januari:1,january:1,februari:2,february:2,maret:3,march:3,april:4,mei:5,may:5,juni:6,june:6,juli:7,july:7,agustus:8,august:8,september:9,oktober:10,october:10,november:11,desember:12,december:12};
+const recapMatch=l.match(/^(?:\/)?recap(?:itulasi)?\s+([a-z]+)(?:\s+(20\d{2}))?$/i);if(recapMatch){const mo=monthAliases[recapMatch[1]],yr=Number(recapMatch[2])||new Date().getFullYear();if(!mo){addChat('bot','Nama bulan belum dikenali. Contoh perintah: recap september atau recap september 2025.');return;}const key=yr+'-'+String(mo).padStart(2,'0'),archive=db.archives.find(a=>a.month===key),hasLive=[...db.sales,...db.expenses,...db.payments,...db.hangus,...db.debts].some(x=>x.month===key);if(!archive&&!hasLive){addChat('bot','Arsip '+monthName(key)+' belum ditemukan. Jika data bulan itu masih tersedia, buka menu Arsip Bulanan lalu pilih bulan tersebut dan tekan Lihat recap. Untuk menyimpan arsip, tekan Simpan Recap.');return;}const d=archive?(archive.metrics||archive):recapData(key);addChat('bot','RECAP '+monthName(key).toUpperCase()+(archive?'\nArsip tersimpan: '+(archive.savedAt||'tanggal tidak tersedia'):'\nCatatan: ini dihitung dari data aktif yang masih tersedia.')+'\n\n• Komisi lunas: '+money(d.commission??d.gross??0)+'\n• Pengeluaran: '+money(d.expenses||0)+'\n• Uang bersih: '+money(d.net||0)+'\n• Nilai penjualan: '+money(d.sales||0)+'\n• DP masuk: '+money(d.dp||0)+'\n• Cicilan masuk: '+money(d.cic||0)+'\n• Uang hangus: '+money(d.hang||0)+'\n• Jumlah botol: '+(d.bottles||0)+'\n• Sisa hutang: '+money(d.remaining||0)+'\n\nUntuk melihat rincian arsip, buka menu Arsip Bulanan dan pilih '+monthName(key)+'.');return;}
+if(/^\d{1,2}$/.test(l)){showGuide(Number(l));return}
+if(['/bantuan','/panduan','/command','/commands','bantuan','panduan','perpustakaan','/help'].includes(l)){addChat('bot',helpList());return}
+if(l.startsWith('/nama')||l.includes('ganti nama bot')||l.includes('ubah nama bot')){openBotSetup(true);return}
+if(l.startsWith('/cari ')){const term=l.slice(6).trim();const hits=guides.map((g,i)=>({g,i})).filter(x=>(x.g.title+' '+x.g.body).toLowerCase().includes(term));addChat('bot',hits.length?'Hasil pencarian “'+term+'”:\n'+hits.map(x=>(x.i+1)+'. '+x.g.title).join('\n')+'\n\nKetik nomor panduan untuk membukanya.':'Belum ada panduan yang cocok, bro. Coba kata lain atau ketik /bantuan.');return}
+if(l.includes('berapa')&&(/penjualan|total jual|omzet/.test(l))){addChat('bot','Total nilai penjualan tercatat: '+money(salesTotal())+'.\nJumlah transaksi penjualan/DP aktif yang tercatat: '+db.sales.filter(s=>!s.closed).length+'. Untuk melihat rincian, buka menu Penjualan atau DP & Cicilan.');return}
+if(l.includes('sisa hutang')||l.includes('total hutang')||l.includes('utang')){addChat('bot','Total sisa hutang yang tercatat: '+money(totalDebtRemain())+'. Buka menu Hutang untuk melihat rincian tiap hutang.');return}
+if(l.includes('pengeluaran')&&(l.includes('berapa')||l.includes('total')||l.includes('cek'))){addChat('bot','Total pengeluaran saat ini: '+money(expenseTotal())+'. Buka menu Pengeluaran untuk melihat catatan satu per satu.');return}
+if(l.includes('cicilan')&&(l.includes('berapa')||l.includes('total')||l.includes('masuk'))){addChat('bot','Total cicilan masuk yang tercatat: '+money(paymentTotal('CICILAN'))+'. Buka menu DP & Cicilan untuk rincian transaksi dan riwayat pembayaran.');return}
+if(l.includes('dp')&&(l.includes('berapa')||l.includes('total')||l.includes('masuk'))){addChat('bot','Total DP masuk yang tercatat: '+money(paymentTotal('DP'))+'. Buka menu DP & Cicilan untuk melihat transaksi dan riwayat pembayaran.');return}
+if(l.includes('saldo')||l.includes('uang bersih')||l.includes('ringkasan')){addChat('bot','Ringkasan bisnis lo, bro:\n• Saldo/komisi terkumpul: '+money(commissionTotal())+'\n• Uang kotor: '+money(currentKotor())+'\n• Total pengeluaran: '+money(expenseTotal())+'\n• Uang bersih: '+money(currentNetValue())+'\n• Total penjualan: '+money(salesTotal())+'\n• DP masuk: '+money(paymentTotal('DP'))+'\n• Cicilan masuk: '+money(paymentTotal('CICILAN'))+'\n• Sisa hutang: '+money(totalDebtRemain())+'\n\nAngka mengikuti data yang tersimpan di aplikasi.');return}
+if(/halo|hai|hello|pagi|siang|sore|malam/.test(l)){addChat('bot','Halo, bro! 👋 Gue '+(botName||'asisten bisnis lo')+'. Mau cek angka bisnis atau buka panduan? Ketik /bantuan untuk melihat perpustakaan.');return}
+if(l.includes('contoh')||l.includes('cara isi')||l.includes('cara mengisi')){addChat('bot','Bisa, bro. Buka perpustakaan dengan /bantuan, lalu ketik nomor panduan. Setiap panduan punya langkah penggunaan dan contoh pengisian.');return}
+addChat('bot','Perintah belum dikenali. Silakan ketik “bantuan” untuk melihat daftar perintah dan panduan yang tersedia.\n\nContoh perintah:\n• saldo\n• total penjualan\n• total pengeluaran\n• total DP masuk\n• total cicilan masuk\n• sisa hutang\n• recap september\n• recap september 2025');}
+function openBotSetup(rename=false){
+  const overlay=document.getElementById('botSetup'),input=document.getElementById('botNameInput');
+  if(!overlay||!input)return;
+  overlay.classList.remove('hidden');
+  overlay.style.display='flex';
+  input.value=botName||'';
+  overlay.dataset.rename=rename?'1':'0';
+  setTimeout(()=>{
+    input.focus();
+    input.select();
+  },50);
+}
+
+function handleSaveBotName(e){
+  if(e) e.preventDefault();
+  const input=document.getElementById('botNameInput');
+  const overlay=document.getElementById('botSetup');
+  if(!input) return;
+  const name=input.value.trim();
+  if(!name){
+    input.focus();
+    notify('Mohon isi nama bot terlebih dahulu.');
+    return;
+  }
+  const wasRename=overlay?.dataset?.rename==='1';
+  botName=name;
+  try{
+    localStorage.setItem(BOT_NAME_KEY, botName);
+  }catch(err){
+    console.warn('Gagal menyimpan nama bot ke localStorage:', err);
+  }
+  if(overlay){
+    overlay.classList.add('hidden');
+    overlay.style.display='none';
+  }
+  renderChat();
+  if(wasRename){
+    addChat('bot','Nama gue sekarang '+botName+', bro! 👑');
+    notify('Nama bot berhasil diubah menjadi '+botName);
+  } else {
+    addChat('bot','Halo, bro! 👋 Senang kenalan. Nama gue '+botName+'. Gue bisa bantu baca ringkasan bisnis dan kasih panduan penggunaan secara offline. Ketik /bantuan buat buka perpustakaan, atau ketik angka 1–11 untuk melihat panduan.');
+    notify('Halo! Asisten '+botName+' siap membantu.');
+  }
+}
+
+document.getElementById('botSetupForm')?.addEventListener('submit',handleSaveBotName);
+document.getElementById('btnSubmitBotName')?.addEventListener('click',e=>{
+  handleSaveBotName(e);
+});
+document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chatInput'),msg=input.value.trim();if(!msg)return;addChat('user',msg);input.value='';respondChat(msg)});
+document.getElementById('openLibrary').addEventListener('click',()=>{addChat('user','/bantuan');addChat('bot',helpList())});
+document.getElementById('renameBot').addEventListener('click',()=>openBotSetup(true));
+document.getElementById('clearChat').addEventListener('click',()=>{if(confirm('Bersihkan riwayat chat bot? Data transaksi tidak akan dihapus.')){chatHistory=[];saveChatHistory();renderChat();addChat('bot','Chat baru dimulai, bro! Ketik /bantuan untuk melihat perpustakaan.')}});
+document.getElementById('libraryList').addEventListener('click',e=>{const b=e.target.closest('[data-guide]');if(b){showGuide(Number(b.dataset.guide));document.getElementById('chatTranscript').scrollIntoView({behavior:'smooth',block:'nearest'})}});
+renderLibrary();renderChat();
+
+const loadingQuests=['Misi Keuangan: Cek saldo awal dan akhir hari.', 'Tantangan Keuangan: Cek saldo awal dan akhir hari.', 'Misi Keuangan: Bandingkan uang kotor dengan uang bersih.', 'Tantangan Keuangan: Bandingkan uang kotor dengan uang bersih.', 'Misi Keuangan: Tinjau pengeluaran yang paling besar.', 'Tantangan Keuangan: Tinjau pengeluaran yang paling besar.', 'Misi Keuangan: Hitung hasil usaha berdasarkan catatan.', 'Tantangan Keuangan: Hitung hasil usaha berdasarkan catatan.', 'Misi Keuangan: Pastikan tidak ada nominal yang tertukar.', 'Tantangan Keuangan: Pastikan tidak ada nominal yang tertukar.', 'Misi Keuangan: Evaluasi biaya yang bisa dihemat.', 'Tantangan Keuangan: Evaluasi biaya yang bisa dihemat.', 'Misi Keuangan: Periksa catatan pemasukan tambahan.', 'Tantangan Keuangan: Periksa catatan pemasukan tambahan.', 'Misi Keuangan: Jaga arus kas agar tetap terpantau.', 'Tantangan Keuangan: Jaga arus kas agar tetap terpantau.', 'Misi Keuangan: Cek total pengeluaran setelah transaksi baru.', 'Tantangan Keuangan: Cek total pengeluaran setelah transaksi baru.', 'Misi Keuangan: Buat target tabungan dari hasil usaha.', 'Tantangan Keuangan: Buat target tabungan dari hasil usaha.', 'Misi Keuangan: Cek hutang yang mendekati jatuh tempo.', 'Tantangan Keuangan: Cek hutang yang mendekati jatuh tempo.', 'Misi Keuangan: Pastikan pembayaran hutang tercatat.', 'Tantangan Keuangan: Pastikan pembayaran hutang tercatat.', 'Misi Keuangan: Periksa kembali total komisi terkumpul.', 'Tantangan Keuangan: Periksa kembali total komisi terkumpul.', 'Misi Keuangan: Lihat perubahan uang bersih minggu ini.', 'Tantangan Keuangan: Lihat perubahan uang bersih minggu ini.', 'Misi Keuangan: Catat setiap uang keluar saat terjadi.', 'Tantangan Keuangan: Catat setiap uang keluar saat terjadi.', 'Misi Keuangan: Bandingkan target keuangan dengan hasil nyata.', 'Tantangan Keuangan: Bandingkan target keuangan dengan hasil nyata.', 'Misi Keuangan: Pisahkan uang operasional dan uang pribadi.', 'Tantangan Keuangan: Pisahkan uang operasional dan uang pribadi.', 'Misi Keuangan: Tinjau apakah ada pengeluaran berulang.', 'Tantangan Keuangan: Tinjau apakah ada pengeluaran berulang.', 'Misi Keuangan: Cek pembayaran yang belum terkonfirmasi.', 'Tantangan Keuangan: Cek pembayaran yang belum terkonfirmasi.', 'Misi Keuangan: Pahami angka sebelum mengubah strategi.', 'Tantangan Keuangan: Pahami angka sebelum mengubah strategi.', 'Misi Pembukuan: Lengkapi catatan transaksi yang tertunda.', 'Tantangan Pembukuan: Lengkapi catatan transaksi yang tertunda.', 'Misi Pembukuan: Cek kembali tanggal pada transaksi terbaru.', 'Tantangan Pembukuan: Cek kembali tanggal pada transaksi terbaru.', 'Misi Pembukuan: Pastikan nama pelanggan mudah dikenali.', 'Tantangan Pembukuan: Pastikan nama pelanggan mudah dikenali.', 'Misi Pembukuan: Simpan cadangan data pembukuan.', 'Tantangan Pembukuan: Simpan cadangan data pembukuan.', 'Misi Pembukuan: Buka arsip dan tinjau hasil bulan lalu.', 'Tantangan Pembukuan: Buka arsip dan tinjau hasil bulan lalu.', 'Misi Pembukuan: Cocokkan daftar pembayaran dengan catatan.', 'Tantangan Pembukuan: Cocokkan daftar pembayaran dengan catatan.', 'Misi Pembukuan: Periksa status setiap transaksi pending.', 'Tantangan Pembukuan: Periksa status setiap transaksi pending.', 'Misi Pembukuan: Pastikan riwayat pembayaran tetap lengkap.', 'Tantangan Pembukuan: Pastikan riwayat pembayaran tetap lengkap.', 'Misi Pembukuan: Tulis alasan pengeluaran dengan jelas.', 'Tantangan Pembukuan: Tulis alasan pengeluaran dengan jelas.', 'Misi Pembukuan: Periksa tabel hutang dan sisa pembayarannya.', 'Tantangan Pembukuan: Periksa tabel hutang dan sisa pembayarannya.', 'Misi Pembukuan: Cek total transaksi sebelum tutup buku.', 'Tantangan Pembukuan: Cek total transaksi sebelum tutup buku.', 'Misi Pembukuan: Pastikan data lama tidak hilang tanpa arsip.', 'Tantangan Pembukuan: Pastikan data lama tidak hilang tanpa arsip.', 'Misi Pembukuan: Rapikan catatan supaya gampang ditelusuri.', 'Tantangan Pembukuan: Rapikan catatan supaya gampang ditelusuri.', 'Misi Pembukuan: Gunakan riwayat untuk memeriksa selisih.', 'Tantangan Pembukuan: Gunakan riwayat untuk memeriksa selisih.', 'Misi Pembukuan: Periksa transaksi yang baru saja lunas.', 'Tantangan Pembukuan: Periksa transaksi yang baru saja lunas.', 'Misi Pembukuan: Pastikan pembayaran masuk ke transaksi yang tepat.', 'Tantangan Pembukuan: Pastikan pembayaran masuk ke transaksi yang tepat.', 'Misi Pembukuan: Tinjau data yang perlu ditindaklanjuti.', 'Tantangan Pembukuan: Tinjau data yang perlu ditindaklanjuti.', 'Misi Pembukuan: Jangan hapus catatan sebelum arsip tersimpan.', 'Tantangan Pembukuan: Jangan hapus catatan sebelum arsip tersimpan.', 'Misi Pembukuan: Periksa kembali ringkasan bulanan.', 'Tantangan Pembukuan: Periksa kembali ringkasan bulanan.', 'Misi Pembukuan: Pastikan semua tabel tercatat rapi.', 'Tantangan Pembukuan: Pastikan semua tabel tercatat rapi.', 'Misi Penjualan: Tentukan satu target penjualan hari ini.', 'Tantangan Penjualan: Tentukan satu target penjualan hari ini.', 'Misi Penjualan: Hubungi calon pelanggan dengan sopan.', 'Tantangan Penjualan: Hubungi calon pelanggan dengan sopan.', 'Misi Penjualan: Tindak lanjuti pelanggan yang belum membayar.', 'Tantangan Penjualan: Tindak lanjuti pelanggan yang belum membayar.', 'Misi Penjualan: Pelajari paket yang paling diminati.', 'Tantangan Penjualan: Pelajari paket yang paling diminati.', 'Misi Penjualan: Siapkan jawaban untuk pertanyaan pelanggan.', 'Tantangan Penjualan: Siapkan jawaban untuk pertanyaan pelanggan.', 'Misi Penjualan: Tinjau alasan pelanggan memilih paket tertentu.', 'Tantangan Penjualan: Tinjau alasan pelanggan memilih paket tertentu.', 'Misi Penjualan: Jaga kualitas layanan setelah transaksi.', 'Tantangan Penjualan: Jaga kualitas layanan setelah transaksi.', 'Misi Penjualan: Buat daftar calon pelanggan untuk ditindaklanjuti.', 'Tantangan Penjualan: Buat daftar calon pelanggan untuk ditindaklanjuti.', 'Misi Penjualan: Evaluasi hasil penjualan tanpa menyalahkan diri.', 'Tantangan Penjualan: Evaluasi hasil penjualan tanpa menyalahkan diri.', 'Misi Penjualan: Latih cara menjelaskan manfaat produk.', 'Tantangan Penjualan: Latih cara menjelaskan manfaat produk.', 'Misi Penjualan: Cek transaksi yang mendekati lunas.', 'Tantangan Penjualan: Cek transaksi yang mendekati lunas.', 'Misi Penjualan: Bangun kepercayaan lewat komunikasi jelas.', 'Tantangan Penjualan: Bangun kepercayaan lewat komunikasi jelas.', 'Misi Penjualan: Catat peluang penjualan yang muncul hari ini.', 'Tantangan Penjualan: Catat peluang penjualan yang muncul hari ini.', 'Misi Penjualan: Tentukan langkah kecil untuk mendapat pelanggan baru.', 'Tantangan Penjualan: Tentukan langkah kecil untuk mendapat pelanggan baru.', 'Misi Penjualan: Tinjau kembali pelayanan kepada pelanggan lama.', 'Tantangan Penjualan: Tinjau kembali pelayanan kepada pelanggan lama.', 'Misi Penjualan: Pastikan harga dan komisi tidak salah input.', 'Tantangan Penjualan: Pastikan harga dan komisi tidak salah input.', 'Misi Penjualan: Susun prioritas follow-up pelanggan.', 'Tantangan Penjualan: Susun prioritas follow-up pelanggan.', 'Misi Penjualan: Berikan informasi pembayaran secara transparan.', 'Tantangan Penjualan: Berikan informasi pembayaran secara transparan.', 'Misi Penjualan: Cari cara meningkatkan pengalaman pelanggan.', 'Tantangan Penjualan: Cari cara meningkatkan pengalaman pelanggan.', 'Misi Penjualan: Ukur kemajuan dari catatan, bukan perasaan.', 'Tantangan Penjualan: Ukur kemajuan dari catatan, bukan perasaan.', 'Misi Disiplin: Mulai dari satu pekerjaan paling penting.', 'Tantangan Disiplin: Mulai dari satu pekerjaan paling penting.', 'Misi Disiplin: Selesaikan tugas kecil yang terus tertunda.', 'Tantangan Disiplin: Selesaikan tugas kecil yang terus tertunda.', 'Misi Disiplin: Luangkan lima menit untuk evaluasi.', 'Tantangan Disiplin: Luangkan lima menit untuk evaluasi.', 'Misi Disiplin: Jaga konsistensi walau hasil belum besar.', 'Tantangan Disiplin: Jaga konsistensi walau hasil belum besar.', 'Misi Disiplin: Kurangi gangguan saat mengerjakan tugas utama.', 'Tantangan Disiplin: Kurangi gangguan saat mengerjakan tugas utama.', 'Misi Disiplin: Buat jadwal sederhana untuk hari ini.', 'Tantangan Disiplin: Buat jadwal sederhana untuk hari ini.', 'Misi Disiplin: Kerjakan yang penting sebelum yang mendesak menumpuk.', 'Tantangan Disiplin: Kerjakan yang penting sebelum yang mendesak menumpuk.', 'Misi Disiplin: Tepati janji yang sudah dibuat pada diri sendiri.', 'Tantangan Disiplin: Tepati janji yang sudah dibuat pada diri sendiri.', 'Misi Disiplin: Berhenti sejenak dan periksa prioritas.', 'Tantangan Disiplin: Berhenti sejenak dan periksa prioritas.', 'Misi Disiplin: Ambil pelajaran dari kesalahan tanpa mengulanginya.', 'Tantangan Disiplin: Ambil pelajaran dari kesalahan tanpa mengulanginya.', 'Misi Disiplin: Jangan menunggu sempurna untuk mulai bergerak.', 'Tantangan Disiplin: Jangan menunggu sempurna untuk mulai bergerak.', 'Misi Disiplin: Selesaikan satu langkah sebelum berpindah fokus.', 'Tantangan Disiplin: Selesaikan satu langkah sebelum berpindah fokus.', 'Misi Disiplin: Berikan usaha terbaik pada hal yang bisa dikendalikan.', 'Tantangan Disiplin: Berikan usaha terbaik pada hal yang bisa dikendalikan.', 'Misi Disiplin: Jaga kebiasaan baik meski sedang sibuk.', 'Tantangan Disiplin: Jaga kebiasaan baik meski sedang sibuk.', 'Misi Disiplin: Evaluasi progres dengan jujur.', 'Tantangan Disiplin: Evaluasi progres dengan jujur.', 'Misi Disiplin: Sisihkan waktu untuk belajar hal baru.', 'Tantangan Disiplin: Sisihkan waktu untuk belajar hal baru.', 'Misi Disiplin: Ubah rencana bila data menunjukkan perlu.', 'Tantangan Disiplin: Ubah rencana bila data menunjukkan perlu.', 'Misi Disiplin: Tetap tenang saat menghadapi angka yang tidak sesuai.', 'Tantangan Disiplin: Tetap tenang saat menghadapi angka yang tidak sesuai.', 'Misi Disiplin: Bangun kepercayaan lewat tindakan konsisten.', 'Tantangan Disiplin: Bangun kepercayaan lewat tindakan konsisten.', 'Misi Disiplin: Tutup hari dengan catatan singkat tentang progres.', 'Tantangan Disiplin: Tutup hari dengan catatan singkat tentang progres.', 'Misi Produktivitas: Bereskan satu bagian catatan bisnis.', 'Tantangan Produktivitas: Bereskan satu bagian catatan bisnis.', 'Misi Produktivitas: Pilih satu proses yang bisa dibuat lebih cepat.', 'Tantangan Produktivitas: Pilih satu proses yang bisa dibuat lebih cepat.', 'Misi Produktivitas: Siapkan kebutuhan kerja untuk besok.', 'Tantangan Produktivitas: Siapkan kebutuhan kerja untuk besok.', 'Misi Produktivitas: Cari satu cara mengurangi pekerjaan berulang.', 'Tantangan Produktivitas: Cari satu cara mengurangi pekerjaan berulang.', 'Misi Produktivitas: Atur daftar tugas berdasarkan dampak.', 'Tantangan Produktivitas: Atur daftar tugas berdasarkan dampak.', 'Misi Produktivitas: Periksa notifikasi penting lalu kembali fokus.', 'Tantangan Produktivitas: Periksa notifikasi penting lalu kembali fokus.', 'Misi Produktivitas: Buat langkah kerja yang mudah diulang.', 'Tantangan Produktivitas: Buat langkah kerja yang mudah diulang.', 'Misi Produktivitas: Pastikan perangkat dan data kerja siap.', 'Tantangan Produktivitas: Pastikan perangkat dan data kerja siap.', 'Misi Produktivitas: Tinjau apa yang menghambat pekerjaan hari ini.', 'Tantangan Produktivitas: Tinjau apa yang menghambat pekerjaan hari ini.', 'Misi Produktivitas: Sederhanakan satu proses yang membingungkan.', 'Tantangan Produktivitas: Sederhanakan satu proses yang membingungkan.', 'Misi Produktivitas: Selesaikan administrasi sebelum menumpuk.', 'Tantangan Produktivitas: Selesaikan administrasi sebelum menumpuk.', 'Misi Produktivitas: Pilih tugas yang memberi dampak paling besar.', 'Tantangan Produktivitas: Pilih tugas yang memberi dampak paling besar.', 'Misi Produktivitas: Buat catatan agar ide tidak terlupakan.', 'Tantangan Produktivitas: Buat catatan agar ide tidak terlupakan.', 'Misi Produktivitas: Atur waktu khusus untuk mengecek laporan.', 'Tantangan Produktivitas: Atur waktu khusus untuk mengecek laporan.', 'Misi Produktivitas: Hindari mengerjakan banyak hal sekaligus.', 'Tantangan Produktivitas: Hindari mengerjakan banyak hal sekaligus.', 'Misi Produktivitas: Bersihkan daftar tugas yang sudah selesai.', 'Tantangan Produktivitas: Bersihkan daftar tugas yang sudah selesai.', 'Misi Produktivitas: Siapkan data yang diperlukan sebelum menghitung.', 'Tantangan Produktivitas: Siapkan data yang diperlukan sebelum menghitung.', 'Misi Produktivitas: Buat keputusan setelah informasi cukup.', 'Tantangan Produktivitas: Buat keputusan setelah informasi cukup.', 'Misi Produktivitas: Evaluasi proses yang memakan waktu terlalu lama.', 'Tantangan Produktivitas: Evaluasi proses yang memakan waktu terlalu lama.', 'Misi Produktivitas: Akhiri sesi kerja dengan langkah berikutnya yang jelas.', 'Tantangan Produktivitas: Akhiri sesi kerja dengan langkah berikutnya yang jelas.'];
+const questKey='pann_bisnis_last_loading_quest';
+let questIndex=Math.floor(Math.random()*loadingQuests.length);
+try{const previous=localStorage.getItem(questKey);if(loadingQuests.length>1&&loadingQuests[questIndex]===previous){questIndex=(questIndex+1+Math.floor(Math.random()*(loadingQuests.length-1)))%loadingQuests.length;}localStorage.setItem(questKey,loadingQuests[questIndex]);}catch(e){}
+const questEl=document.getElementById('loadingQuest');if(questEl)questEl.textContent=loadingQuests[questIndex];
+const loadingStages=[{ms:0,p:5,label:'Menyiapkan aplikasi'},{ms:1000,p:22,label:'Memuat data lokal'},{ms:2000,p:43,label:'Menyiapkan transaksi'},{ms:3000,p:64,label:'Memeriksa ringkasan'},{ms:4000,p:84,label:'Menyiapkan arsip'}];
+function setLoading(p,label){const bar=document.getElementById('loadingProgress'),pct=document.getElementById('loadingPercent'),step=document.getElementById('loadingStep'),sub=document.getElementById('loadingStatus');if(bar)bar.style.width=p+'%';if(pct)pct.textContent=p+'%';if(step)step.textContent=label;if(sub)sub.textContent='Lagi Loading Sabar';}
+const loadingStart=Date.now();loadingStages.forEach(st=>setTimeout(()=>setLoading(st.p,st.label),st.ms));
+render();
+const loadingDuration=5000;setTimeout(()=>{setLoading(100,'Siap digunakan');setTimeout(()=>{document.getElementById('loadingScreen')?.classList.add('done');addChat('bot','Halo lagi, bro! 👋 Gue '+(botName||'Asisten Bisnis')+'. Mau cek saldo, penjualan, atau buka perpustakaan? Ketik /bantuan untuk daftar panduan.');},350);},Math.max(0,loadingDuration-(Date.now()-loadingStart)));
+})();
+</script>
+</body></html>
